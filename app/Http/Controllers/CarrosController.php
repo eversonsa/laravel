@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use App\Models\Carro;
+use Illuminate\Http\Request;
 
 class CarrosController extends Controller
 {
@@ -12,6 +13,10 @@ class CarrosController extends Controller
     }
     public function getAdicionar(){
         return view('carros.create-edit');
+    }
+    public function postAdicionar(Request $request) {
+        dd($request);
+        return 'adicionando um novo carro';
     }
     public function getEditar($idCarro) {
         return view('carros.create-edit', ['idCarro' => $idCarro]);
