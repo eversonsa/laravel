@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
+use App\Models\Carro;
 
 class CarrosController extends Controller
 {
     public function getIndex(){
-        return view('carros.index');
+        $carros = Carro::get();
+        return view('carros.index', compact('carros'));
     }
     public function getAdicionar(){
         return view('carros.create-edit');
