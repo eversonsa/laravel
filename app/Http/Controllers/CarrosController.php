@@ -15,8 +15,9 @@ class CarrosController extends Controller
         return view('carros.create-edit');
     }
     public function postAdicionar(Request $request) {
-        dd($request);
-        return 'adicionando um novo carro';
+        $dadosFormulario = $request->all();
+        Carro::create($dadosFormulario);
+        return redirect('carros');
     }
     public function getEditar($idCarro) {
         return view('carros.create-edit', ['idCarro' => $idCarro]);
