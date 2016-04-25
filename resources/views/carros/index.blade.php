@@ -8,3 +8,5 @@
     <p>Nenhum carro cadastrado</p>
 @endforelse
 
+{!! $carros->render() !!}
+

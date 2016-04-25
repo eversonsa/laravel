@@ -9,7 +9,7 @@ use Validator;
 class CarrosController extends Controller
 {
     public function getIndex(){
-        $carros = Carro::get();
+        $carros = Carro::paginate(2);
         return view('carros.index', compact('carros'));
     }
     public function getAdicionar(){
