@@ -16,7 +16,7 @@ class CarrosController extends Controller
         return view('carros.create-edit');
     }
     public function postAdicionar(Request $request) {
-        $dadosFormulario = $request->all();
+        $dadosFormulario = $request->except('file');
         
         $rules = [
             'nome' => 'required|min:3|max:100',
@@ -27,6 +27,12 @@ class CarrosController extends Controller
                 return redirect('carros/adicionar')
                       ->withErrors($validar)
                       ->withInput();
+            }
+            
+            $file = $request->file('file');
+            
+            if ( $request->hasFile('file') && $file->isValid()){
+                $file->move('assets/uploads/images', $file->getClientOriginalName());
             }
         
         Carro::create($dadosFormulario);
