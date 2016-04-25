@@ -31,7 +31,13 @@ class CarrosController extends Controller
         return redirect('carros/index');
     }
     public function getDeletar($idCarro) {
-        return view('carros.deletar');
         
+        $carro = Carro::find($idCarro);
+        $carro->delete();
+        return redirect('carros/index');
+    }
+    
+    public function missingMethod($param = array()) {
+        return "erro 404 pagina nao encontrada";
     }
 }
