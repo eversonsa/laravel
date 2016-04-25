@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+
 use App\Models\Carro;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,7 @@ class CarrosController extends Controller
         $dadosFormulario = $request->except('_token');
         Carro::where('id', $idcarro)->update($dadosFormulario);
         
-        return redirect('carros');
+        return redirect('carros/index');
     }
     public function getDeletar($idCarro) {
         return view('carros.deletar');

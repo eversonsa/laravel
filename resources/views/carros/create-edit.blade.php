@@ -1,7 +1,7 @@
 <h1>formulario Adicionar carros</h1>
 
-@if(isset($carro))
-     <p>{!!Form::open(['url' => "carros/editar/$carro-id"]) !!}</p>
+@if(isset($carro) )
+     <p>{!!Form::open(['url' => "carros/editar/$carro->id"]) !!}</p>
 @else
     {!!Form::open(['url' => 'carros/adicionar'])!!}
 @endif     
