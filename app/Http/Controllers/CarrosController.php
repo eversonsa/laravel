@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Carro;
 use Illuminate\Http\Request;
+use Validator;
 
 class CarrosController extends Controller
 {
@@ -16,6 +17,18 @@ class CarrosController extends Controller
     }
     public function postAdicionar(Request $request) {
         $dadosFormulario = $request->all();
+        
+        $rules = [
+            'nome' => 'required|min:3|max:100',
+            'placa' => 'required|min:7|max:7',
+        ];
+        $validar = Validator::make($dadosFormulario, $rules);
+            if( $validar->fails() ){
+                return redirect('carros/adicionar')
+                      ->withErrors($validar)
+                      ->withInput();
+            }
+        
         Carro::create($dadosFormulario);
         return redirect('carros');
     }

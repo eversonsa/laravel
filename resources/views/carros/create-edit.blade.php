@@ -1,6 +1,9 @@
 <h1>formulario Adicionar carros</h1>
 
-
+@if( count($errors) > 0)
+    @foreach($errors->all() as $error)
+        {{$error}}
+    @endforeach
 @if(isset($carro) )
      <p>{!!Form::open(['url' => "carros/editar/$carro->id"]) !!}</p>
 @else

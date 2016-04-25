@@ -1,4 +1,5 @@
 <h1>Bem vindo a listagem</h1>
+<h2>{!!HTML::link('carros/adicionar/', 'Adicionar')!!}</h2>
 {{-- Lista os carros --}}
 @forelse($carros as $carro)
 
