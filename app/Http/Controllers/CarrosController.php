@@ -18,16 +18,7 @@ class CarrosController extends Controller
     public function postAdicionar(Request $request) {
         $dadosFormulario = $request->except('file');
         
-        $rules = [
-            'nome' => 'required|min:3|max:100',
-            'placa' => 'required|min:7|max:7',
-        ];
-        $validar = Validator::make($dadosFormulario, $rules);
-            if( $validar->fails() ){
-                return redirect('carros/adicionar')
-                      ->withErrors($validar)
-                      ->withInput();
-            }
+        $validar = Validator::make($dadosFormulario, Carro::$rules);
             
             $file = $request->file('file');
             
@@ -45,6 +36,13 @@ class CarrosController extends Controller
     }
     public function postEditar(Request $request, $idcarro) {
         $dadosFormulario = $request->except('_token');
+        
+         $validar = Validator::make($dadosFormulario, Carro::$rules);
+         if( $validar->fails() ){
+                return redirect("carros/editar/$idcarro")
+                      ->withErrors($validar)
+                      ->withInput();
+            }
         Carro::where('id', $idcarro)->update($dadosFormulario);
         
         return redirect('carros/index');
