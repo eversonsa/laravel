@@ -14,9 +14,12 @@ class CreateTableCarro extends Migration
     {
         Schema::create('carros', function(Blueprint $table){
             $table->increments('id');
+            $table->integer('id_marca')->unsigned();
+            $table->foreign('id_marca')->references('id')->on('marcos_carros');
             $table->string('nome');
             $table->string('placa');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateTableCarro extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carros');
+         Schema::dropIfExists('carros');
     }
 }
