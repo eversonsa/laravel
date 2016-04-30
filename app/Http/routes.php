@@ -30,3 +30,5 @@ Route::get('produtos', 'ProdutoController@index');
 Route::get('produto/cadastro', 'ProdutoController@create');
 
 Route::controller('carros', 'CarrosController');
+Route::controller('cor', 'CoresController');
+Route::controller('marca', 'MarcaController');

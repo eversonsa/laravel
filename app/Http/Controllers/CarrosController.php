@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carro;
 use Illuminate\Http\Request;
 use Validator;
+use App\Models\MarcosCarro;
 
 class CarrosController extends Controller {
 
@@ -14,7 +15,11 @@ class CarrosController extends Controller {
     }
 
     public function getAdicionar() {
-        return view('carros.create-edit');
+        
+        //busca toda as marcas de carros
+        $marcas = MarcosCarro::lists('marca', 'id');
+        
+        return view('carros.create-edit', compact('marcas'));
     }
 
     public function postAdicionar(Request $request) {
@@ -40,8 +45,10 @@ class CarrosController extends Controller {
 
     public function getEditar($idCarro) {
         $carro = Carro::find($idCarro);
+        
+        $marcas = MarcosCarro::lists('marca', 'id');
 
-        return view('carros.create-edit', compact('carro'));
+        return view('carros.create-edit', compact('carro', 'marcas'));
     }
 
     public function postEditar(Request $request, $idcarro) {

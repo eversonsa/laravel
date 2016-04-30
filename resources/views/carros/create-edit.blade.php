@@ -11,7 +11,8 @@
     {!!Form::open(['url' => 'carros/adicionar', 'files' => true] ) !!}
 @endif     
         {!! Form::text('nome', isset($carro->nome) ? $carro->nome : null, ['placeholder' => 'nome do carro'] ) !!}
-        {!! Form::text('placa', isset($carro->placa) ? $carro->placa : null, ['placeholder' => 'placa do carro'] ) !!}
+        {!! Form::text('placa', isset($carro->placa) ? $carro->placa : null, ['placeholder' => 'placa do carro'] ) !!}  
+        {!!Form::select('id_marca', $marcas, isset($carro->id_marca) ? $carro->id_marca : null)!!}
         {!! Form::file('file') !!}
         <p> {!!Form::submit('Enviar')!!}</p>
 {!!Form::close()!!}
