@@ -32,3 +32,13 @@ Route::get('produto/cadastro', 'ProdutoController@create');
 Route::controller('carros', 'CarrosController');
 Route::controller('cor', 'CoresController');
 Route::controller('marca', 'MarcaController');
+
+/*Route::get('query-builder', function(){
+    dd((DB::table('carros')->get()));
+});*/
+
+/*Route::get('query-builder', function(){
+   inserir dd((DB::table('carros')->insert(['nome' => 'RENAULT', 'placa' => 'TXT8956', 'id_marca' => 3])));
+    update dd((DB::table('carros')->WHERE('ID', 3)->UPDATE(['NOME' => 'etctec'])));
+   deletar dd((DB::table('carros')->WHERE('ID', 3)->delete()); 
+});*/

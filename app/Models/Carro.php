@@ -10,6 +10,6 @@ class Carro extends Model
     
     static $rules = [
             'nome' => 'required|min:3|max:100',
-            'placa' => 'required|min:7|max:7',
+            'placa' => 'required|min:7|max:7|unique:carros,placa',
         ];
 }

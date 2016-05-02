@@ -7,67 +7,89 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\MarcosCarro;
 
+
+
+
 class CarrosController extends Controller {
+    
+    private $carro;
+    private $request;
+    private $marcaCarro;
+    private $validar;
+    
+    public function __construct(Carro $carro, Request $request, MarcosCarro $marcaCarro, Validator $validar) {
+        $this->carro = $carro;
+        $this->request = $request;
+        $this->marcaCarro = $marcaCarro;
+        $this->validar = $validar;
+    }
 
     public function getIndex() {
-        $carros = Carro::paginate(7);
+        $carros = $this->carro->paginate(7);
+        
         return view('carros.index', compact('carros'));
     }
 
     public function getAdicionar() {
         
         //busca toda as marcas de carros
-        $marcas = MarcosCarro::lists('marca', 'id');
+        $marcas = $this->marcaCarro->lists('marca', 'id');
         
         return view('carros.create-edit', compact('marcas'));
     }
 
-    public function postAdicionar(Request $request) {
+    public function postAdicionar() {
 
-        $dadosFormulario = $request->except('file');
+        $dadosFormulario = $this->request->except('file');
 
         $validar = Validator::make($dadosFormulario, Carro::$rules);
+        
         if ($validar->fails()) {
             return redirect('carros/adicionar')
                             ->withErrors($validar)
                             ->withInput();
         }
-        $file = $request->file('file');
+        $file = $this->request->file('file');
 
-        if ($request->hasFile('file') && $file->isValid()) {
+        if ($this->request->hasFile('file') && $file->isValid()) {
             $file->move('assets/uploads/images', $file->getClientOriginalName());
         }
 
-        Carro::create($dadosFormulario);
+        $this->carro->create($dadosFormulario);
 
         return redirect('carros');
     }
 
     public function getEditar($idCarro) {
-        $carro = Carro::find($idCarro);
+        $carro = $this->carro->find($idCarro);
         
-        $marcas = MarcosCarro::lists('marca', 'id');
+        $marcas = $this->marcaCarro->lists('marca', 'id');
 
         return view('carros.create-edit', compact('carro', 'marcas'));
     }
 
-    public function postEditar(Request $request, $idcarro) {
-        $dadosForm = $request->except('_token');
+    public function postEditar($idcarro) {
+        $dadosForm = $this->request->except('_token');
+        
+        $rulesEdit = [
+            'nome' => 'required|min:3|max:100',
+            'placa' => "required|min:7|max:7|unique:carros,placa, $idcarro",
+        ];
 
-        $validar = Validator::make($dadosForm, Carro::$rules);
+        $validar = Validator::make($dadosForm,  $rulesEdit);
         if ($validar->fails()) {
             return redirect("carros/editar/$idcarro")
                             ->withErrors($validar)
                             ->withInput();
         }
-        Carro::where('id', $idcarro)->update($dadosForm);
+        $this->carro->where('id', $idcarro)->update($dadosForm);
 
         return redirect('carros/index');
     }
 
     public function getDeletar($idCarro) {
 
-        $carro = Carro::find($idCarro);
+        $carro = $this->carro->find($idCarro);
         $carro->delete();
         return redirect('carros/index');
     }
