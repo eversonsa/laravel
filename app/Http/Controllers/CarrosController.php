@@ -61,7 +61,7 @@ class CarrosController extends Controller {
 
     public function postAdicionarViaAjax() {
 
-        $dadosFormulario = $this->request->except('file');
+        $dadosFormulario = $this->request->all();
 
          $validar = $this->validar->make($dadosFormulario, Carro::$rules);
 
@@ -82,7 +82,15 @@ class CarrosController extends Controller {
 
         return 1;
     }
-
+    public function getListarViaAjax() {
+        return view('carros.listarAjax');
+    }
+    
+    public function getCarrosAjax() {
+        sleep(3);
+        return $this->carro->select('nome', 'placa')->get()->toJson();
+    }
+    
     public function getEditar($idCarro) {
         $carro = $this->carro->find($idCarro);
 

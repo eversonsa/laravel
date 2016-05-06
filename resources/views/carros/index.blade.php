@@ -9,7 +9,8 @@
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalGestaoCarros">
     Cadastrar Carro via ajax
 </button>
-
+<a href="carros/listar-via-ajax" class="btn btn-danger btn-lg" data-toggle="modal" target="_blank">listar via Ajax</a> 
+ 
 <table class="table table-hover">
     <tr>
         <th>Nome</th>
@@ -62,10 +63,10 @@
 
 
 @section('scripts')
-<script type="text/javascript">
+<script>
     $(function(){
         
-        $('form.form').submit(function(){
+        $("form.form").submit(function(){
         
             var dadosFormulario = $(this).serialize();
             
@@ -73,7 +74,7 @@
                 url: $(this).attr("send"),
                 data: dadosFormulario,
                 type: "POST",
-                beforesend: iniciaPreloader()            
+                beforeSend: iniciaPreloader()            
             }).done(function(data){
                 
                 finalizaPreloader();
