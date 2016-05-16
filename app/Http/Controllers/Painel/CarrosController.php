@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Painel;
 
 use App\Models\Carro;
 use Illuminate\Http\Request;
 use App\Models\MarcosCarro;
+use App\Http\Controllers\Controller;
 
 class CarrosController extends Controller {
 
