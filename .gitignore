@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 /vendor
 /node_modules
 .env
 /nbproject/private/
+=======
+/vendor
+/node_modules
+.env
+>>>>>>> origin/master
